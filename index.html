@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تسجيل الدخول</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background: #f2f2f2;
+}
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,.15);
+  text-align: center;
+}
+h1 {
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+#profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: block;
+  object-fit: cover;
+  border: 2px solid #4CAF50;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #ff9800;
+  color: rgb(255, 255, 255);
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.hidden { display: none; }
+
+#loginCount {
+  font-size: 14px;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+  لقمتنا / Luqmatna 🍽️
+  <br>
+  <span style="font-size:29px; color:#888;"> تسجيل الدخول / Login</span>
+</h1>
+
+
+<img id="profilePic"
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRlclm9wT_vJIKBluUMZWA7PrbqzUQleF36g&s"
+alt="Profile">
+
+<div id="loginSection">
+  <input type="email" id="email" placeholder="البريد الإلكتروني / Email">
+  <input type="password" id="password" placeholder="كلمة المرور / Password">
+  <button onclick="loginUser()">تسجيل الدخول / Login</button>
+  <div id="loginCount"></div>
+</div>
+
+<div id="userInfoSection" class="hidden">
+  <h3>مرحباً بك في قطر/ Welcome to Qatar</h3>
+  <p id="userEmailDisplay"></p>
+  <div id="loginCountDisplay"></div>
+
+  <button onclick="goNext()">التالي / Next ➡️</button>
+</div>
+
+</div>
+
+<script>
+// عداد المشتركين
+let loginCounter = parseInt(localStorage.getItem('loginCount') || '0');
+document.getElementById('loginCount').innerText =
+  "عدد المشتركين / Users: " + loginCounter;
+
+function loginUser(){
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if(!email || !password){
+    alert("ادخل البريد الإلكتروني وكلمة المرور / Enter Email and Password");
+    return;
+  }
+
+  // حفظ البريد فقط (بدون كلمة المرور)
+  localStorage.setItem('email', email);
+
+  loginCounter++;
+  localStorage.setItem('loginCount', loginCounter);
+
+  document.getElementById('userEmailDisplay').innerText = email;
+  document.getElementById('loginCountDisplay').innerText =
+    "عدد المشتركين / Users: " + loginCounter;
+
+  document.getElementById('loginSection').classList.add('hidden');
+  document.getElementById('userInfoSection').classList.remove('hidden');
+}
+
+// الانتقال إلى health.html
+function goNext(){
+  window.location.href = "health.html";
+}
+</script>
+
+</body>
+</html>
